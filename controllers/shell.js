@@ -22,5 +22,5 @@ var fn_shell = async (ctx, next) => {
 };
 
 module.exports = {
-    'GET /shell': fn_shell,
+    // 'GET /shell': fn_shell,
 };
