@@ -1,3 +1,4 @@
+const model = require('../model');
 var fn_index = async (ctx, next) => {
     ctx.response.body = `<h1>Index</h1>
         <form action="/signin" method="post">
@@ -20,7 +21,22 @@ var fn_signin = async (ctx, next) => {
     }
 };
 
+var fn_test = async (ctx, next) => {
+    // ctx.response.body = {name: 'lin',sfasdf: 'fsa'};
+    var cpu_temp = ctx.request.body.cpuTemp
+    let Status = model.Status
+
+    let result 
+    await Status.findAll().then(function (pets) {
+        result = pets
+    })
+    
+    ctx.response.body = pets
+    
+};
+
 module.exports = {
     'GET /': fn_index,
+    'GET /test': fn_test,
     'POST /signin': fn_signin
 };

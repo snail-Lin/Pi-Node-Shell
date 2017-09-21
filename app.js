@@ -12,8 +12,6 @@ const templating = require('./templating.js');
 
 const model = require('./model');
 
-let User = model.User;
-console.log(User);
 
 //记录URL以及页面执行时间
 app.use(async (ctx, next) => {

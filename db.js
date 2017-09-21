@@ -36,19 +36,12 @@ function defineModel(name, attributes) {
             };
         }
     }
-    attrs.id = {
-        type: ID_TYPE,
-        primaryKey: true
-    };
-    attrs.createdAt = {
+
+    attrs.created_time = {
         type: Sequelize.BIGINT,
         allowNull: false
     };
-    attrs.updatedAt = {
-        type: Sequelize.BIGINT,
-        allowNull: false
-    };
-    attrs.version = {
+    attrs.updated_time = {
         type: Sequelize.BIGINT,
         allowNull: false
     };
@@ -77,21 +70,17 @@ function defineModel(name, attributes) {
     return sequelize.define(name, attrs, {
         tableName: name,
         timestamps: false,
+        initialAutoIncrement: 0,
         hooks: {
             beforeValidate: function (obj) {
                 let now = Date.now();
                 if (obj.isNewRecord) {
                     console.log('will create entity...' + obj);
-                    if (!obj.id) {
-                        obj.id = generateId();
-                    }
-                    obj.createdAt = now;
-                    obj.updatedAt = now;
-                    obj.version = 0;
+                    obj.created_time = now;
+                    obj.updated_time = now;
                 } else {
                     console.log('will update entity...');
-                    obj.updatedAt = now;
-                    obj.version++;
+                    obj.updated_time = now;
                 }
             }
         }

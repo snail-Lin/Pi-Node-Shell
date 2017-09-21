@@ -1,5 +1,5 @@
 var config = {
-    database: 'Test',
+    database: 'pi',
     username: 'root',
     password: 'swift',
     host: 'localhost',
