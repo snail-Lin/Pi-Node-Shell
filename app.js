@@ -43,6 +43,6 @@ app.use(templating('view', {
 //处理URL路由
 app.use(controller());
 
-app.listen(3000);
+app.listen(10001);
 
-console.log('app started at port 3000...');
+console.log('app started at port 10001...');
