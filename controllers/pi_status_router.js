@@ -4,10 +4,11 @@ var fn_add = async (ctx, next) => {
     var
         cpu_temp = ctx.request.body.cpu_temp,
         gpu_temp = ctx.request.body.gpu_temp;
+        battery_temp = ctx.request.body.battery_temp;
         
     ctx.response.type = 'application/json';    
 
-    if (!cpu_temp && !gpu_temp) {
+    if (!cpu_temp && !gpu_temp && !battery_temp) {
         ctx.response.body = {
             code: "0",
             message: "数据为空"
@@ -18,7 +19,8 @@ var fn_add = async (ctx, next) => {
     let Pi = model.pi_satus;
     var obj = await Pi.create({
         cpu_temp: cpu_temp,
-        gpu_temp: gpu_temp
+        gpu_temp: gpu_temp,
+        battery_temp: battery_temp
     });
     ctx.response.body = obj;
 };
@@ -28,12 +30,13 @@ var fn_list = async (ctx, next) => {
 
     ctx.response.type = 'application/json';
 
-    page = +ctx.request.query.page;
+    let page = ctx.request.query.page;
     console.log(ctx.request.query)
-    if (typeof page === 'number') {
+    if (!isNaN(page)) {
+        const pageNum = 20;
         var objs = await Pi.findAll({
-            limit: 7,
-            offset: 7 * page
+            limit: pageNum,
+            offset: pageNum * page
         });
         ctx.response.body = objs;
     } else {

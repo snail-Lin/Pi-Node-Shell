@@ -8,5 +8,9 @@ module.exports = db.defineModel('pi_status', {
     gpu_temp: {
         type: db.INTEGER,
         allowNull: true
+    },
+    battery_temp: {
+        type: db.INTEGER,
+        allowNull: true
     }
 });
