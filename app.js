@@ -8,6 +8,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 const templating = require('./templating.js');
 const model = require('./model');
 
+const cors = require('koa2-cors');
+
 const path = require('path')
 const log4js = require('koa-log4');
 const appDir = path.resolve(__dirname, '.')
@@ -25,6 +27,16 @@ try {
 
 log4js.configure(path.join(appDir, 'log4js.json'), { cwd: logDir })
 
+app.use(cors({
+  origin: function (ctx) {
+      return '*';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 
 app.use(log4js.koaLogger(log4js.getLogger("http"), { level: 'auto' }))
 //记录URL以及页面执行时间
