@@ -25,6 +25,29 @@ var fn_add = async (ctx, next) => {
     ctx.response.body = obj;
 };
 
+var fn_time_search = async (ctx, next) => {
+
+    if (typeof ctx.request.body.start_time != "string" || typeof ctx.request.body.end_time != "string") {
+        ctx.response.body = { message: "格式错误" };
+        return;
+    }
+
+    var start_time = new Date(ctx.request.body.start_time).getTime();
+    var end_time = new Date(ctx.request.body.end_time).getTime();
+
+    let Pi = model.pi_satus;
+    var objs = await Pi.findAll({
+        where: {
+            created_time: {
+                $gte: start_time,
+                $lte: end_time
+            }
+        }
+    })
+
+    ctx.response.body = objs;
+}
+
 var fn_list = async (ctx, next) => {
     let Pi = model.pi_satus;
 
@@ -48,5 +71,6 @@ var fn_list = async (ctx, next) => {
 
 module.exports = {
     'POST /api/pi/status': fn_add,
-    'GET /api/pi/status': fn_list
+    'GET /api/pi/status': fn_list,
+    'POST /api/pi/search': fn_time_search
 };
