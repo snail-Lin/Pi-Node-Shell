@@ -48,6 +48,21 @@ var fn_time_search = async (ctx, next) => {
     ctx.response.body = objs;
 }
 
+var fn_time_countSearch = async (ctx, next) => {
+
+        let Pi = model.pi_satus;
+        var objs = await Pi.findAll({
+            where: {
+                created_time: {
+                    $gte: +ctx.request.body.start_time,
+                    $lte: +ctx.request.body.end_time
+                }
+            }
+        })
+    
+        ctx.response.body = objs;
+    }
+
 var fn_list = async (ctx, next) => {
     let Pi = model.pi_satus;
 
@@ -69,8 +84,10 @@ var fn_list = async (ctx, next) => {
 }
 
 
+
 module.exports = {
     'POST /api/pi/status': fn_add,
     'GET /api/pi/status': fn_list,
-    'POST /api/pi/search': fn_time_search
+    'POST /api/pi/search': fn_time_search,
+    'POST /api/pi/time_search': fn_time_countSearch
 };
