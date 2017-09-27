@@ -71,15 +71,17 @@ var fn_list = async (ctx, next) => {
     let page = ctx.request.query.page;
     console.log(ctx.request.query)
     if (!isNaN(page)) {
-        const pageNum = 20;
+        const pageNum = 30;
         var objs = await Pi.findAll({
             limit: pageNum,
-            offset: pageNum * page
+            offset: pageNum * page,
+            order: [[ 'created_time', 'DESC' ]]
         });
-        ctx.response.body = objs;
+
+        ctx.response.body = objs.sort((obj1, obj2) => obj1.created_time > obj2.created_time);
     } else {
-        var objs = await Pi.findAll({ limit: 100 });
-        ctx.response.body = objs;
+        var objs = await Pi.findAll({ limit: 100, order: [[ 'created_time', 'DESC' ]] });
+        ctx.response.body = objs.sort((obj1, obj2) => obj1.created_time > obj2.created_time);
     }
 }
 
