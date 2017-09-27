@@ -1,31 +1,20 @@
-const Koa = require('koa');
-const bodyParser = require('koa-bodyparser');
 // 创建一个Koa对象表示web app本身:
+const Koa =  require('koa');
 const app = new Koa();
+const bodyParser = require('koa-bodyparser');
+const cors = require('koa2-cors');
+
+
+
 // 导入controller middleware:
 const controller = require('./controller');
 const isProduction = process.env.NODE_ENV === 'production';
 const templating = require('./templating.js');
 const model = require('./model');
 
-const cors = require('koa2-cors');
 
-const path = require('path')
-const log4js = require('koa-log4');
-const appDir = path.resolve(__dirname, '.')
-const logDir = path.join(appDir, 'logs')
+const log4js = require('./logger')();
 const logger = log4js.getLogger('app')
-
-try {
-    require('fs').mkdirSync(logDir)
-  } catch (e) {
-    if (e.code != 'EEXIST') {
-      console.error('Could not set up log directory, error was: ', e)
-      process.exit(1)
-    }
-  }
-
-log4js.configure(path.join(appDir, 'log4js.json'), { cwd: logDir })
 
 app.use(cors({
   origin: function (ctx) {
