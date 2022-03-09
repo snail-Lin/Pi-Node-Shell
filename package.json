@@ -1,27 +1,33 @@
 {
-    "name": "pi",
-    "version": "1.0.0",
-    "description": "Raspberry Pi node shell",
-    "main": "app.js",
-    "scripts": {
-        "start": "node app.js"
-    },
-    "author": "yihan",
-    "license": "Apache-2.0",
-    "dependencies": {
-        "koa": "2.0.0",
-        "koa-router": "7.0.0",
-        "koa-bodyparser": "3.2.0",
-        "shelljs":"*",
-        "yargs":"*",
-        "child_process":"*",
-        "nunjucks": "2.4.2",
-        "mime": "1.3.4",
-        "mz": "2.4.0",
-        "sequelize": "3.24.1",
-        "mysql": "2.11.1",
-        "mssql": "*",
-        "koa-log4": "*",
-        "koa2-cors": "*"
-    }
+  "name": "pi",
+  "version": "1.0.0",
+  "description": "Raspberry Pi node shell",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "yihan",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "atob": "^2.0.3",
+    "axios": "^0.18.0",
+    "btoa": "^1.1.2",
+    "child_process": "*",
+    "koa": "2.0.0",
+    "koa-bodyparser": "3.2.0",
+    "koa-log4": "*",
+    "koa-router": "7.0.0",
+    "koa2-cors": "*",
+    "mime": "1.3.4",
+    "mssql": "*",
+    "mysql": "2.11.1",
+    "mz": "2.4.0",
+    "nunjucks": "2.4.2",
+    "pako": "*",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "sequelize": "3.24.1",
+    "shelljs": "*",
+    "yargs": "*"
+  }
 }

@@ -3,7 +3,8 @@ const Koa =  require('koa');
 const app = new Koa();
 const bodyParser = require('koa-bodyparser');
 const cors = require('koa2-cors');
-
+const rest = require('./rest');
+const axios = require('axios')
 
 
 // 导入controller middleware:
@@ -15,6 +16,14 @@ const model = require('./model');
 
 const log4js = require('./logger')();
 const logger = log4js.getLogger('app')
+
+axios.post('http://wect.haidilao.com/hdl_market/rs/inner/appCommonRest/toQueryInfoPage', {
+    
+}).then(function(response) {
+    console.log(response)
+}).catch(function(error) {
+    console.log(response)
+})
 
 app.use(cors({
   origin: function (ctx) {
@@ -47,7 +56,7 @@ if (!isProduction) {
     app.use(staticFiles('/static/', __dirname + '/static'));
 }
 
-//解析POST请求
+//解析POST请求,赋值body
 app.use(bodyParser());
 
 //使用Nunjucks
@@ -55,6 +64,8 @@ app.use(templating('view', {
     noCache: !isProduction,
     watch: !isProduction
 }));
+
+app.use(rest.restify());
 
 //处理URL路由
 app.use(controller());
